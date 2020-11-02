@@ -266,7 +266,7 @@ namespace MatrixCalc
 
         private class Trace : Command
         {
-            protected override string[] Syntax => new[] {"i/Tr {m:Matrix}", "i/trace {m:Matrix}"};
+            protected override string[] Syntax => new[] {"Tr {m:Matrix}", "trace {m:Matrix}"};
             public override string Title => "След матрицы";
             public override string Description => "Вычисляет след матрицы.";
 

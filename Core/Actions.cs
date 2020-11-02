@@ -7,15 +7,23 @@ namespace MatrixCalc.Core
     /// </summary>
     public static class Actions
     {
-        // Здесь 37 методов, из которых большинство тривиальны. Если я не написал к ним всем документацию, то прошу меня
-        // извинить. В конце-концов в этом файле имя метода и типы должны прерасно описывать что именно он делает.
-        // Если действительно что-то непонятно, то команды в Commands.cs все имеют хорошее описание.
+        // Здесь 37 методов, из которых большинство тривиальны. К каждому написана подробная документация.
+        // Получилось 224 строки кода и 207 строк комментариев (и 56 пустых).
 
-        public static Number Add(this Number a, Number b)
-        {
-            return new Number(a.Value + b.Value);
-        }
+        /// <summary>
+        /// Сложение.
+        /// </summary>
+        /// <param name="a">Одно слагаемое.</param>
+        /// <param name="b">Другое слагаемое.</param>
+        /// <returns>Результат сложения.</returns>
+        public static Number Add(this Number a, Number b) => new Number(a.Value + b.Value);
 
+        /// <summary>
+        /// Сложение.
+        /// </summary>
+        /// <param name="a">Одно слагаемое.</param>
+        /// <param name="b">Другое слагаемое.</param>
+        /// <returns>Результат сложения.</returns>
         public static Matrix Add(this Matrix a, IdentityMatrix b)
         {
             var result = a.Clone();
@@ -27,84 +35,134 @@ namespace MatrixCalc.Core
             return result;
         }
 
-        public static Matrix Add(this IdentityMatrix a, Matrix b)
-        {
-            return b.Add(a);
-        }
+        /// <summary>
+        /// Сложение.
+        /// </summary>
+        /// <param name="a">Одно слагаемое.</param>
+        /// <param name="b">Другое слагаемое.</param>
+        /// <returns>Результат сложения.</returns>
+        public static Matrix Add(this IdentityMatrix a, Matrix b) => b.Add(a);
 
-        public static IdentityMatrix Add(this IdentityMatrix a, IdentityMatrix b)
-        {
-            return new IdentityMatrix(a.Value + b.Value);
-        }
+        /// <summary>
+        /// Сложение.
+        /// </summary>
+        /// <param name="a">Одно слагаемое.</param>
+        /// <param name="b">Другое слагаемое.</param>
+        /// <returns>Результат сложения.</returns>
+        public static IdentityMatrix Add(this IdentityMatrix a, IdentityMatrix b) =>
+            new IdentityMatrix(a.Value + b.Value);
 
-        public static Matrix Add(this Matrix a, Matrix b)
-        {
-            return a.Zip(b, (x, y) => x + y);
-        }
+        /// <summary>
+        /// Сложение.
+        /// </summary>
+        /// <param name="a">Одно слагаемое.</param>
+        /// <param name="b">Другое слагаемое.</param>
+        /// <returns>Результат сложения.</returns>
+        public static Matrix Add(this Matrix a, Matrix b) => a.Zip(b, (x, y) => x + y);
 
-        public static Number Negate(this Number number)
-        {
-            return new Number(-number.Value);
-        }
+        /// <summary>
+        /// Умножение на -1.
+        /// </summary>
+        /// <param name="number">Что нужно умножить на -1.</param>
+        /// <returns>Результат умножения на -1.</returns>
+        public static Number Negate(this Number number) => new Number(-number.Value);
 
-        public static Matrix Negate(this Matrix matrix)
-        {
-            return matrix.Multiply(new Number(-1));
-        }
+        /// <summary>
+        /// Умножение на -1.
+        /// </summary>
+        /// <param name="matrix">Что нужно умножить на -1.</param>
+        /// <returns>Результат умножения на -1.</returns>
+        public static Matrix Negate(this Matrix matrix) => matrix.Multiply(new Number(-1));
 
-        public static IdentityMatrix Negate(this IdentityMatrix matrix)
-        {
-            return new IdentityMatrix(-matrix.Value);
-        }
+        /// <summary>
+        /// Умножение на -1.
+        /// </summary>
+        /// <param name="matrix">Что нужно умножить на -1.</param>
+        /// <returns>Результат умножения на -1.</returns>
+        public static IdentityMatrix Negate(this IdentityMatrix matrix) => new IdentityMatrix(-matrix.Value);
 
-        public static Number Subtract(this Number a, Number b)
-        {
-            return new Number(a.Value - b.Value);
-        }
+        /// <summary>
+        /// Вычитание.
+        /// </summary>
+        /// <param name="a">Уменьшаемое.</param>
+        /// <param name="b">Вычитаемое.</param>
+        /// <returns>Результат вычитания из уменьшаемого вычитаемого.</returns>
+        public static Number Subtract(this Number a, Number b) => new Number(a.Value - b.Value);
 
-        public static Matrix Subtract(this Matrix a, IdentityMatrix b)
-        {
-            return a.Add(b.Negate());
-        }
+        /// <summary>
+        /// Вычитание.
+        /// </summary>
+        /// <param name="a">Уменьшаемое.</param>
+        /// <param name="b">Вычитаемое.</param>
+        /// <returns>Результат вычитания из уменьшаемого вычитаемого.</returns>
+        public static Matrix Subtract(this Matrix a, IdentityMatrix b) => a.Add(b.Negate());
 
-        public static Matrix Subtract(this IdentityMatrix a, Matrix b)
-        {
-            return b.Add(b.Negate());
-        }
+        /// <summary>
+        /// Вычитание.
+        /// </summary>
+        /// <param name="a">Уменьшаемое.</param>
+        /// <param name="b">Вычитаемое.</param>
+        /// <returns>Результат вычитания из уменьшаемого вычитаемого.</returns>
+        public static Matrix Subtract(this IdentityMatrix a, Matrix b) => b.Add(b.Negate());
 
-        public static Matrix Subtract(this Matrix a, Matrix b)
-        {
-            return a.Zip(b, (x, y) => x - y);
-        }
+        /// <summary>
+        /// Вычитание.
+        /// </summary>
+        /// <param name="a">Уменьшаемое.</param>
+        /// <param name="b">Вычитаемое.</param>
+        /// <returns>Результат вычитания из уменьшаемого вычитаемого.</returns>
+        public static Matrix Subtract(this Matrix a, Matrix b) => a.Zip(b, (x, y) => x - y);
 
-        public static IdentityMatrix Subtract(this IdentityMatrix a, IdentityMatrix b)
-        {
-            return new IdentityMatrix(a.Value - b.Value);
-        }
+        /// <summary>
+        /// Вычитание.
+        /// </summary>
+        /// <param name="a">Уменьшаемое.</param>
+        /// <param name="b">Вычитаемое.</param>
+        /// <returns>Результат вычитания из уменьшаемого вычитаемого.</returns>
+        public static IdentityMatrix Subtract(this IdentityMatrix a, IdentityMatrix b) =>
+            new IdentityMatrix(a.Value - b.Value);
 
-        public static Matrix Multiply(this IdentityMatrix identity, Matrix matrix)
-        {
-            return matrix.Multiply(identity);
-        }
+        /// <summary>
+        /// Умножение.
+        /// </summary>
+        /// <param name="identity">Один множитель.</param>
+        /// <param name="matrix">Ещё один множитель.</param>
+        /// <returns>Результат умножения.</returns>
+        public static Matrix Multiply(this IdentityMatrix identity, Matrix matrix) => matrix.Multiply(identity);
 
-        public static Matrix Multiply(this Matrix matrix, IdentityMatrix identity)
-        {
-            return matrix.Map(x => x * identity.Value);
-        }
+        /// <summary>
+        /// Умножение.
+        /// </summary>
+        /// <param name="identity">Один множитель.</param>
+        /// <param name="matrix">Ещё один множитель.</param>
+        /// <returns>Результат умножения.</returns>
+        public static Matrix Multiply(this Matrix matrix, IdentityMatrix identity) =>
+            matrix.Map(x => x * identity.Value);
 
-        public static IdentityMatrix Multiply(this IdentityMatrix a, IdentityMatrix b)
-        {
-            return new IdentityMatrix(a.Value * b.Value);
-        }
+        /// <summary>
+        /// Умножение.
+        /// </summary>
+        /// <param name="a">Один множитель.</param>
+        /// <param name="b">Ещё один множитель.</param>
+        /// <returns>Результат умножения.</returns>
+        public static IdentityMatrix Multiply(this IdentityMatrix a, IdentityMatrix b) =>
+            new IdentityMatrix(a.Value * b.Value);
 
-        public static Number Multiply(this Number a, Number b)
-        {
-            return new Number(a.Value * b.Value);
-        }
+        /// <summary>
+        /// Умножение.
+        /// </summary>
+        /// <param name="a">Один множитель.</param>
+        /// <param name="b">Ещё один множитель.</param>
+        /// <returns>Результат умножения.</returns>
+        public static Number Multiply(this Number a, Number b) => new Number(a.Value * b.Value);
 
         /// <summary>
         /// Матричное умножение матриц.
         /// </summary>
+        /// <param name="left">Матрица слева.</param>
+        /// <param name="right">Матрица справа.</param>
+        /// <returns>Резульат умножения матрицы слева на матрицу справа.</returns>
+        /// <exception cref="ComputationError">Если матрицы неправильных размеров.</exception>
         public static Matrix Multiply(this Matrix left, Matrix right)
         {
             var (n, m1) = left.Size;
@@ -139,36 +197,64 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Поэлементное умножение матриц.
         /// </summary>
-        public static Matrix MultiplyElements(this Matrix a, Matrix b)
-        {
-            return a.Zip(b, (x, y) => x * y);
-        }
+        /// <param name="a">Одна матрица.</param>
+        /// <param name="b">Другая матрица.</param>
+        /// <returns>Результат умножения.</returns>
+        public static Matrix MultiplyElements(this Matrix a, Matrix b) => a.Zip(b, (x, y) => x * y);
 
-        public static Number Divide(this Number left, Number right)
-        {
-            return new Number(left.Value.SafeDiv(right.Value));
-        }
+        /// <summary>
+        /// Деление.
+        /// </summary>
+        /// <param name="left">Делимое.</param>
+        /// <param name="right">Делитель.</param>
+        /// <returns>Результат деления делимого на делитель.</returns>
+        public static Number Divide(this Number left, Number right) => new Number(left.Value.SafeDiv(right.Value));
 
-        public static IdentityMatrix Divide(this IdentityMatrix left, IdentityMatrix right)
-        {
-            return new IdentityMatrix(left.Value.SafeDiv(right.Value));
-        }
+        /// <summary>
+        /// Деление.
+        /// </summary>
+        /// <param name="left">Делимое.</param>
+        /// <param name="right">Делитель.</param>
+        /// <returns>Результат деления делимого на делитель.</returns>
+        public static IdentityMatrix Divide(this IdentityMatrix left, IdentityMatrix right) =>
+            new IdentityMatrix(left.Value.SafeDiv(right.Value));
 
-        public static Matrix Divide(this Matrix left, IdentityMatrix right)
-        {
-            return left.Map(x => x.SafeDiv(right.Value));
-        }
+        /// <summary>
+        /// Деление.
+        /// </summary>
+        /// <param name="left">Делимое.</param>
+        /// <param name="right">Делитель.</param>
+        /// <returns>Результат деления делимого на делитель.</returns>
+        public static Matrix Divide(this Matrix left, IdentityMatrix right) => left.Map(x => x.SafeDiv(right.Value));
 
+        /// <summary>
+        /// Возведение в степень.
+        /// </summary>
+        /// <param name="number">Основание.</param>
+        /// <param name="power">Показатель.</param>
+        /// <returns>Результат возведения в степень.</returns>
         public static Number Power(this Number number, double power)
         {
             return new Number(Math.Pow(number.Value, power));
         }
 
+        /// <summary>
+        /// Возведение в степень.
+        /// </summary>
+        /// <param name="matrix">Основание.</param>
+        /// <param name="power">Показатель.</param>
+        /// <returns>Результат возведения в степень.</returns>
         public static IdentityMatrix Power(this IdentityMatrix matrix, double power)
         {
             return new IdentityMatrix(Math.Pow(matrix.Value, power));
         }
 
+        /// <summary>
+        /// Возведение в степень.
+        /// </summary>
+        /// <param name="matrix">Основание.</param>
+        /// <param name="power">Показатель.</param>
+        /// <returns>Результат возведения в степень.</returns>
         public static Matrix Power(this Matrix matrix, int power)
         {
             if (power == 0)
@@ -191,19 +277,26 @@ namespace MatrixCalc.Core
             return result;
         }
 
-        public static Number Invert(this Number number)
-        {
-            return new Number(1d.SafeDiv(number.Value));
-        }
+        /// <summary>
+        /// Нахождение обратного.
+        /// </summary>
+        /// <param name="number">Для чего нужно найти обратное.</param>
+        /// <returns>Обратное.</returns>
+        public static Number Invert(this Number number) => new Number(1d.SafeDiv(number.Value));
 
-        public static IdentityMatrix Invert(this IdentityMatrix identity)
-        {
-            return new IdentityMatrix(1d.SafeDiv(identity.Value));
-        }
+        /// <summary>
+        /// Нахождение обратного.
+        /// </summary>
+        /// <param name="identity">Для чего нужно найти обратное.</param>
+        /// <returns>Обратное.</returns>
+        public static IdentityMatrix Invert(this IdentityMatrix identity) =>
+            new IdentityMatrix(1d.SafeDiv(identity.Value));
 
         /// <summary>
         /// Нахождение обратной матрицы.
         /// </summary>
+        /// <param name="matrix">Обычная матрица.</param>
+        /// <returns>Обратная к данной матрица.</returns>
         public static Matrix Invert(this Matrix matrix)
         {
             if (!matrix.IsSquare)
@@ -229,17 +322,26 @@ namespace MatrixCalc.Core
             return gauss.Trace!;
         }
 
-        public static Solution Solve(this Matrix matrix)
-        {
-            var gauss = new Gauss(matrix, false).Calculate().Result;
-            return new Solution(gauss);
-        }
+        /// <summary>
+        /// Решение СЛАУ.
+        /// </summary>
+        /// <param name="matrix">СЛАУ в матричном виде.</param>
+        /// <returns>Результат решения.</returns>
+        public static Solution Solve(this Matrix matrix) => new Solution(new Gauss(matrix, false).Calculate().Result);
 
-        public static Matrix Canonical(this Matrix matrix)
-        {
-            return new Gauss(matrix, false).Calculate().Result;
-        }
+        /// <summary>
+        /// Приведение матрицы к каноническому виду.
+        /// </summary>
+        /// <param name="matrix">Матрица.</param>
+        /// <returns>Канонический вид матрицы.</returns>
+        public static Matrix Canonical(this Matrix matrix) => new Gauss(matrix, false).Calculate().Result;
 
+        /// <summary>
+        /// Определитель матрицы.
+        /// </summary>
+        /// <param name="matrix">Матрица.</param>
+        /// <returns>Определитель</returns>
+        /// <exception cref="ComputationError">Если матрица не квадратная.</exception>
         public static Number Determinant(Matrix matrix)
         {
             if (!matrix.IsSquare)
@@ -263,6 +365,9 @@ namespace MatrixCalc.Core
         /// <summary>
         /// След матрицы: https://ru.wikipedia.org/wiki/След_матрицы
         /// </summary>
+        /// <param name="matrix">Матрица.</param>
+        /// <returns>След матрицы.</returns>
+        /// <exception cref="ComputationError">Если матрица не квадратная.</exception>
         public static Number Trace(Matrix matrix)
         {
             if (!matrix.IsSquare)
@@ -282,6 +387,11 @@ namespace MatrixCalc.Core
             return new Number(result);
         }
 
+        /// <summary>
+        /// Транспонирование матрицы.
+        /// </summary>
+        /// <param name="matrix">Матрица.</param>
+        /// <returns>Траспонированная матрица.</returns>
         public static Matrix Transpose(Matrix matrix)
         {
             var result = new Matrix(matrix.Size.columns, matrix.Size.rows);
@@ -296,6 +406,12 @@ namespace MatrixCalc.Core
             return result;
         }
 
+        /// <summary>
+        /// Приклеивание матрицы справа.
+        /// </summary>
+        /// <param name="left">Матрица, которая будет слева.</param>
+        /// <param name="right">Матрица, которая будет справа.</param>
+        /// <returns>Блочная матрица, составленная из данных двух.</returns>
         public static Matrix JoinHorizontal(this Matrix left, Matrix right)
         {
             if (left.Size.rows != right.Size.rows)
@@ -329,6 +445,12 @@ namespace MatrixCalc.Core
             return result;
         }
 
+        /// <summary>
+        /// Приклеивание матрицы снизу.
+        /// </summary>
+        /// <param name="top">Матрица, которая будет сверхк.</param>
+        /// <param name="bottom">Матрица, которая будет снизу.</param>
+        /// <returns>Блочная матрица, составленная из данных двух.</returns>
         public static Matrix JoinVertical(this Matrix top, Matrix bottom)
         {
             if (top.Size.columns != bottom.Size.columns)

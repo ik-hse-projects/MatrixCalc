@@ -21,9 +21,28 @@ namespace MatrixCalc
         private Context? parent;
 
         /// <summary>
+        /// Если это корневой контекст, то здесь хранится значение из `WarningShown`.
+        /// </summary>
+        private bool warningShown;
+
+        /// <summary>
         /// Было ли выведено предупреждение о поддерживаемых числах.
         /// </summary>
-        public bool WarningShown;
+        public bool WarningShown
+        {
+            get => parent?.warningShown ?? warningShown;
+            private set
+            {
+                if (parent != null)
+                {
+                    parent.WarningShown = value;
+                }
+                else
+                {
+                    warningShown = value;
+                }
+            } 
+        }
 
         /// <summary>
         /// Выводит предупреждение и устанавливает соответствующий флаг.
@@ -44,7 +63,7 @@ namespace MatrixCalc
         private static bool IsBig(double number)
         {
             var abs = Math.Abs(number);
-            return abs > 1000 || abs < 0.0001D;
+            return !abs.IsZero() && (abs > 1000 || abs < 0.0001D);
         }
 
         /// <summary>
