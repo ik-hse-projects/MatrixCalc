@@ -54,7 +54,7 @@ namespace MatrixCalc.Core
                     if (!number.IsZero())
                     {
                         var sign = "+";
-                        if (double.IsNegative(number))
+                        if (number < 0)
                         {
                             number = -number;
                             sign = "-";

@@ -11,12 +11,12 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Числа внутри.
         /// </summary>
-        internal double[] Data;
+        internal decimal[] Data;
 
         /// <summary>
         /// Внутренний конструктор, который заполняет все поля.
         /// </summary>
-        protected Matrix((int rows, int columns) size, double[] data)
+        protected Matrix((int rows, int columns) size, decimal[] data)
         {
             Data = data;
             Size = size;
@@ -29,7 +29,7 @@ namespace MatrixCalc.Core
         /// <param name="columns">Кол-во столбцов.</param>
         public Matrix(int rows, int columns)
         {
-            Data = new double[rows * columns];
+            Data = new decimal[rows * columns];
             Size = (rows, columns);
         }
 
@@ -61,7 +61,7 @@ namespace MatrixCalc.Core
         /// </summary>
         /// <param name="row">Строка матрицы.</param>
         /// <param name="column">Столбец матрицы.</param>
-        public double this[int row, int column]
+        public decimal this[int row, int column]
         {
             get => Data[GetIndex(row, column)];
             set => Data[GetIndex(row, column)] = value;
@@ -144,7 +144,7 @@ namespace MatrixCalc.Core
         /// </summary>
         /// <param name="other">Другая матрица, размер должен совпадать с размером текущей.</param>
         /// <param name="func">Функция.</param>
-        public Matrix Zip(Matrix other, Func<double, double, double> func)
+        public Matrix Zip(Matrix other, Func<decimal, decimal, decimal> func)
         {
             if (other.Size != Size)
             {
@@ -165,7 +165,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Применяет указанную функцию ко всем элементам матрицы, заменяя их.
         /// </summary>
-        public void MapInplace(Func<double, double> func)
+        public void MapInplace(Func<decimal, decimal> func)
         {
             for (var i = 0; i < Data.Length; i++)
             {
@@ -177,7 +177,7 @@ namespace MatrixCalc.Core
         /// Создаёт новую матрицу на основе существующей, применяя указанную функцию ко васем элементам матрицы.
         /// Например, `m.Map(x => x+1)` создаст матрицу, в которой все элементы увеличены на единицу.
         /// </summary>
-        public Matrix Map(Func<double, double> func)
+        public Matrix Map(Func<decimal, decimal> func)
         {
             var res = Clone();
             res.MapInplace(func);
@@ -223,7 +223,7 @@ namespace MatrixCalc.Core
                 for (var column = 1; column <= splitted.Length; column++)
                 {
                     var value = splitted[column - 1];
-                    if (!double.TryParse(value, out var parsed))
+                    if (!decimal.TryParse(value, out var parsed))
                     {
                         throw new ComputationError($"Не удалось разобрать число: {value}.");
                     }

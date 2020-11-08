@@ -102,7 +102,7 @@ namespace MatrixCalc
                 "name" => TryCast<string>(obj),
                 "int" => TryCast<Number>(obj).Int(),
                 "uint" => TryCast<Number>(obj).UInt(),
-                "double" => TryCast<Number>(obj).Value,
+                "decimal" => TryCast<Number>(obj).Value,
                 "Matrix" => TryCast<Matrix>(obj),
                 "Number" => TryCast<Number>(obj),
                 "Basic" => TryCast<IBasic>(obj),

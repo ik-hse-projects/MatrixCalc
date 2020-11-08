@@ -22,7 +22,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Добавляет к строке `row` строку `another`, умноженную на `multiplier`. Реузльтат помещается в строку `row`.
         /// </summary>
-        public static void AddOneRowToAnother(this Matrix matrix, int row, int another, double multiplier)
+        public static void AddOneRowToAnother(this Matrix matrix, int row, int another, decimal multiplier)
         {
             for (var i = 1; i <= matrix.Size.columns; i++)
             {
@@ -35,7 +35,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Умножает строку на число.
         /// </summary>
-        public static void MultiplyRow(this Matrix matrix, int row, double multiplyBy)
+        public static void MultiplyRow(this Matrix matrix, int row, decimal multiplyBy)
         {
             for (var i = 1; i <= matrix.Size.columns; i++)
             {
@@ -104,7 +104,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Умножает строку на число.
         /// </summary>
-        private void MultiplyRow(int row, double multiplier)
+        private void MultiplyRow(int row, decimal multiplier)
         {
             result.MultiplyRow(row, multiplier);
             trace?.MultiplyRow(row, multiplier);
@@ -113,7 +113,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Прибавляет к одной строке другую, умноженную на число.
         /// </summary>
-        private void AddOneRowToAnother(int row, int another, double multiplier)
+        private void AddOneRowToAnother(int row, int another, decimal multiplier)
         {
             result.AddOneRowToAnother(row, another, multiplier);
             trace?.AddOneRowToAnother(row, another, multiplier);
@@ -146,7 +146,7 @@ namespace MatrixCalc.Core
                     MultiplyRow(row, 1 / current);
 
                     // Мы только что поедлили на current, поэтому здесь должна быть единица.
-                    // Но double не очень надёжны, так что лучше сделать её явно:
+                    // Но decimal не очень надёжны, так что лучше сделать её явно:
                     result[row, column] = 1;
 
                     for (var i = 1; i <= maxRow; i++)

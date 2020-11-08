@@ -108,7 +108,7 @@ namespace MatrixCalc
             }
 
             var span = number.ToString();
-            if (!double.TryParse(span, out var parsed))
+            if (!decimal.TryParse(span, out var parsed))
             {
                 throw new ParsingError($"Некорректное число: {span}");
             }

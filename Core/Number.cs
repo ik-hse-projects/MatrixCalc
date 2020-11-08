@@ -5,7 +5,7 @@ namespace MatrixCalc.Core
     /// </summary>
     public sealed class Number : IdentityMatrix
     {
-        public Number(double value) : base(value)
+        public Number(decimal value) : base(value)
         {
         }
 
@@ -38,7 +38,7 @@ namespace MatrixCalc.Core
                 throw new ParsingError($"{Value} не является целым числом.");
             }
 
-            if (double.IsNegative(Value))
+            if (Value < 0)
             {
                 throw new ParsingError($"{Value} не является неотрицательным числом.");
             }
@@ -59,7 +59,7 @@ namespace MatrixCalc.Core
         {
             return new[,]
             {
-                {Value.ToString()}
+                {Value.ToString("0.#######")}
             };
         }
     }

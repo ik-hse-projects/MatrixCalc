@@ -181,7 +181,7 @@ namespace MatrixCalc.Core
             {
                 for (var column = 1; column <= k; column++)
                 {
-                    var sum = 0d;
+                    var sum = 0m;
                     for (var i = 1; i <= m1; i++)
                     {
                         sum += left[row, i] * right[i, column];
@@ -233,9 +233,9 @@ namespace MatrixCalc.Core
         /// <param name="number">Основание.</param>
         /// <param name="power">Показатель.</param>
         /// <returns>Результат возведения в степень.</returns>
-        public static Number Power(this Number number, double power)
+        public static Number Power(this Number number, decimal power)
         {
-            return new Number(Math.Pow(number.Value, power));
+            return new Number((decimal) Math.Pow((double) number.Value, (double) power));
         }
 
         /// <summary>
@@ -244,9 +244,9 @@ namespace MatrixCalc.Core
         /// <param name="matrix">Основание.</param>
         /// <param name="power">Показатель.</param>
         /// <returns>Результат возведения в степень.</returns>
-        public static IdentityMatrix Power(this IdentityMatrix matrix, double power)
+        public static IdentityMatrix Power(this IdentityMatrix matrix, decimal power)
         {
-            return new IdentityMatrix(Math.Pow(matrix.Value, power));
+            return new IdentityMatrix((decimal) Math.Pow((double) matrix.Value, (double)power));
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace MatrixCalc.Core
         /// </summary>
         /// <param name="number">Для чего нужно найти обратное.</param>
         /// <returns>Обратное.</returns>
-        public static Number Invert(this Number number) => new Number(1d.SafeDiv(number.Value));
+        public static Number Invert(this Number number) => new Number(1m.SafeDiv(number.Value));
 
         /// <summary>
         /// Нахождение обратного.
@@ -290,7 +290,7 @@ namespace MatrixCalc.Core
         /// <param name="identity">Для чего нужно найти обратное.</param>
         /// <returns>Обратное.</returns>
         public static IdentityMatrix Invert(this IdentityMatrix identity) =>
-            new IdentityMatrix(1d.SafeDiv(identity.Value));
+            new IdentityMatrix(1m.SafeDiv(identity.Value));
 
         /// <summary>
         /// Нахождение обратной матрицы.
@@ -353,7 +353,7 @@ namespace MatrixCalc.Core
             }
 
             var gauss = new Gauss(matrix, false).Calculate().Result;
-            var result = 1d;
+            var result = 1m;
             for (var i = 1; i <= matrix.MinDimension; i++)
             {
                 result *= gauss[i, i];
@@ -378,7 +378,7 @@ namespace MatrixCalc.Core
                 };
             }
 
-            var result = 0d;
+            var result = 0m;
             for (var i = 1; i < matrix.MinDimension; i++)
             {
                 result += matrix[i, i];

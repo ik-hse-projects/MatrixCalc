@@ -115,20 +115,24 @@ namespace MatrixCalc
         /// <summary>
         /// Делит <paramref name="left" /> на <paramref name="right" /> и возвращает результат деления.
         /// </summary>
-        public static double SafeDiv(this double left, double right)
+        public static decimal SafeDiv(this decimal left, decimal right)
         {
-            // Раньше расчеты велись в decimal, но позже по ряду причин пришлось перейти на double.
+            // Раньше расчеты велись в decimal, но позже по ряду причин пришлось перейти на decimal.
             // Эта функция довольно проста, но если вдруг потребуется снова перейти на decimal или int,
             // то можно будет легко добавить проверку на деление на ноль.
+            if (right.IsZero())
+            {
+                throw new ComputationError("Нелья делить на ноль =(");
+            }
             return left / right;
         }
 
         /// <summary>
         /// Сравнивает число с нулём с некоторым допуском.
         /// </summary>
-        public static bool IsZero(this double number)
+        public static bool IsZero(this decimal number)
         {
-            return Math.Abs(number) < 1e-10;
+            return Math.Abs(number) < 1e-10m;
         }
     }
 }

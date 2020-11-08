@@ -114,7 +114,7 @@ namespace MatrixCalc
         {
             var rng = new Random();
             var delta = maxValue - minValue;
-            matrix.MapInplace(_ => rng.NextDouble() * delta + minValue);
+            matrix.MapInplace(_ => (decimal)(rng.NextDouble() * delta + minValue));
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace MatrixCalc
             {
                 var minValue = context.AskUser("Минимальное значение:").AsNumber()!.Value;
                 var maxValue = context.AskUser("Максимальное значение:").AsNumber()!.Value;
-                result.FillMatrixWithRandom(minValue, maxValue);
+                result.FillMatrixWithRandom((double) minValue, (double) maxValue);
             }
 
             return result;

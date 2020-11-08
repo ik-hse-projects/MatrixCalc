@@ -8,7 +8,7 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Создаёт новую единичную матрицу, умноженную на число.
         /// </summary>
-        public IdentityMatrix(double value)
+        public IdentityMatrix(decimal value)
         {
             Value = value;
         }
@@ -16,12 +16,12 @@ namespace MatrixCalc.Core
         /// <summary>
         /// Число, которое расположено на главной диагонали.
         /// </summary>
-        public double Value { get; }
+        public decimal Value { get; }
 
         /// <inheritdoc />
         public virtual string[,] Display()
         {
-            var value = Value.ToString();
+            var value = Value.ToString("0.#######");
             return new[,]
             {
                 {value, "0 ", "⋯ ", "0 ", "0"},

@@ -60,10 +60,10 @@ namespace MatrixCalc
         /// <summary>
         /// Проверяет, является ли число «большим».
         /// </summary>
-        private static bool IsBig(double number)
+        private static bool IsBig(decimal number)
         {
             var abs = Math.Abs(number);
-            return !abs.IsZero() && (abs > 1000 || abs < 0.0001D);
+            return !abs.IsZero() && (abs > 1000 || abs < 0.0001m);
         }
 
         /// <summary>
