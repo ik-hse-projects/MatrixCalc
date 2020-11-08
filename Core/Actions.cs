@@ -348,13 +348,13 @@ namespace MatrixCalc.Core
             {
                 throw new ComputationError("Определитель определён только для квадратных матриц.")
                 {
-                    Left = matrix
+                    Right = matrix
                 };
             }
 
             var gauss = new Gauss(matrix, false).Calculate().Result;
             var result = 1d;
-            for (var i = 1; i < matrix.MinDimension; i++)
+            for (var i = 1; i <= matrix.MinDimension; i++)
             {
                 result *= gauss[i, i];
             }
@@ -374,7 +374,7 @@ namespace MatrixCalc.Core
             {
                 throw new ComputationError("След матрицы определён только для квадратных матриц.")
                 {
-                    Left = matrix
+                    Right = matrix
                 };
             }
 

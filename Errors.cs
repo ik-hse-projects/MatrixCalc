@@ -128,7 +128,7 @@ namespace MatrixCalc
         /// </summary>
         public static bool IsZero(this double number)
         {
-            return Math.Abs(number) < 100 * double.Epsilon;
+            return Math.Abs(number) < 1e-10;
         }
     }
 }

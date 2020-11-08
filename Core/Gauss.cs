@@ -144,6 +144,11 @@ namespace MatrixCalc.Core
                 {
                     // Step 1.
                     MultiplyRow(row, 1 / current);
+
+                    // Мы только что поедлили на current, поэтому здесь должна быть единица.
+                    // Но double не очень надёжны, так что лучше сделать её явно:
+                    result[row, column] = 1;
+
                     for (var i = 1; i <= maxRow; i++)
                     {
                         if (i != row)

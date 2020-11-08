@@ -30,6 +30,7 @@ namespace MatrixCalc
                     cw("   > :load ./examples/simple.txt B");
                     cw("Если интересно, то её легко вывести на экран");
                     cw("   > $B");
+                    cw("Подробнее про загрузку файлов см. `:help load`");
                     cw("");
                     cw("Теперь можем сделать разные простые вычисления: ");
                     cw("   > $A + $B");
@@ -119,7 +120,7 @@ namespace MatrixCalc
                     cw("   > :save All.txt");
                     cw("   > :load examples/slau.txt");
                     cw("   > solve $slau_A");
-                    return;
+                    goto case "format";
                 case "format":
                     cw("# Формат файла.");
                     cw("В файле разрешены однострочные комментарии (строки, начинающиеся с # или //) " +
