@@ -63,7 +63,7 @@ namespace MatrixCalc
                 FinishNumber();
                 FinishUnparsed();
                 var evaluated = Finish();
-                parent.tokens.Add(new ComputedValue(span.ToString(), evaluated));
+                parent.tokens.Add(new ComputedValue("(" + span.ToString() + ")", evaluated));
                 return parent;
             }
 

@@ -14,7 +14,7 @@ namespace MatrixCalc
         /// </summary>
         public static readonly IReadOnlyList<IReadOnlyList<Command>> Commands = new[]
         {
-            new Command[] {new GetVarCmd(), new GenerateRandomMatrix()},
+            new Command[] {new GetVarCmd(), new GenerateRandomMatrix(), new EmptyList()},
             new Command[] {new IdentityCmd()},
             new Command[] {new Transpose(), new CanonicalForm(), new Trace()},
             new Command[] {new BlockMatrixHorizontal(), new BlockMatrixVertical()},
@@ -22,6 +22,7 @@ namespace MatrixCalc
             new Command[] {new Pow()},
             new Command[] {new MatrixElementMul(), new Mul(), new Div()},
             new Command[] {new Sum(), new Sub()},
+            new Command[] {new ListAdd()},
             new Command[] {new SetVarCmd()}
         };
 
@@ -288,6 +289,37 @@ namespace MatrixCalc
             public override IBasic? Compute(Context context, dynamic args)
             {
                 return Actions.Solve(args.m);
+            }
+        }
+
+        private class ListAdd : Command
+        {
+            protected override string[] Syntax => new[] {"{xs:List} , {x:Basic}"};
+
+            public override string Title => "Увеличить список";
+
+            public override string Description =>
+                "Создаёт список из списка слева и значения справа";
+
+            public override IBasic? Compute(Context context, dynamic args)
+            {
+                // FIXME: Это плохо работает, если список положут в переменную.
+                args.xs.Add(args.x);
+                return args.xs;
+            }
+        }
+
+        private class EmptyList : Command
+        {
+            protected override string[] Syntax => new[] {"[]"};
+
+            public override string Title => "Создать список список";
+
+            public override string Description => "Создаёт совершенно пустой список";
+
+            public override IBasic? Compute(Context context, dynamic args)
+            {
+                return new BasicList();
             }
         }
 

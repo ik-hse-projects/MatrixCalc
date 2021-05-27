@@ -75,15 +75,13 @@ namespace MatrixCalc
                     var argsAsCollection = (ICollection<KeyValuePair<string, dynamic>>) args;
 
                     argsAsCollection.Add(new KeyValuePair<string, dynamic>("span", command.Span));
-                    var span = "";
-                    if (AddArg(command.Command, command.Syntax.Left, i - 1, argsAsCollection, ref span))
+                    var span = $" {command.Span} ";
+                    if (AddArg(command, true, i - 1, argsAsCollection, ref span))
                     {
                         i--;
                     }
 
-                    span += command.Span;
-
-                    AddArg(command.Command, command.Syntax.Right, i + 1, argsAsCollection, ref span);
+                    AddArg(command, false, i + 1, argsAsCollection, ref span);
 
                     var value = command.Command.Compute(context, args);
                     tokens[i] = new ComputedValue(span, value);
@@ -145,17 +143,20 @@ namespace MatrixCalc
         }
 
         /// <summary>
-        /// Функция берет `i`-ый токен, пытается его интерпретировать как аргумент команды `command`,
-        /// описание которого передаётся в `placeholder`. Если это удалось, то помещает аргумент с соответсвующим именем
+        /// Функция берет `i`-ый токен, пытается его интерпретировать как аргумент команды `parsed`.
+        /// Если это удалось, то помещает аргумент с соответсвующим именем
         /// в argsAsCollection. Прибавляет в конец `span` Span токена.
         /// </summary>
         /// <exception cref="ComputationError">Если аргумент не того типа, который требует команда.</exception>
         /// <exception cref="ParsingError">Если аргумент отмечен как обязательный, но его не удалось найти.</exception>
         /// <returns>Был ли найден аргумент.</returns>
-        private bool AddArg(Command command, Placeholder? placeholder, int i,
+        private bool AddArg(ParsedCommand parsed, bool isLeft, int i,
             ICollection<KeyValuePair<string, dynamic>> argsAsCollection, ref string span)
         {
             // Ох, какая же эта функция страшная...
+
+            var placeholder = isLeft ? parsed.Syntax.Left : parsed.Syntax.Right;
+            var command = parsed.Command;
 
             if (placeholder == null)
             {
@@ -166,6 +167,7 @@ namespace MatrixCalc
             if (i >= 0 && i < tokens.Count)
             {
                 var token = tokens[i];
+
                 switch (token)
                 {
                     case ComputedValue prev:
@@ -201,13 +203,22 @@ namespace MatrixCalc
                     }
                 }
 
-                span += token.Span;
+                if (isLeft)
+                {
+                    span = token.Span + span;
+                }
+                else
+                {
+                    span = span + token.Span;
+                }
+
             }
 
             if (argumentValue == null && !placeholder.Nullable)
             {
+                var position = isLeft ? "левый" : "правый";
                 throw new ParsingError(
-                    $"Не удалось найти необходимый операнд при попытке применить оператор {command}.")
+                    $"Не удалось найти {position} операнд при попытке применить оператор {command}.")
                 {
                     Span = span
                 };

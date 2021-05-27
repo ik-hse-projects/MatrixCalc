@@ -84,6 +84,7 @@ namespace MatrixCalc
 
             var expected = typeof(T).Name;
             var found = obj.GetType().Name;
+            // FIXME: Хорошо бы говорить пользователю где именно произошла ошибка
             throw new ComputationError($"Ожидался операнд типа {expected}, но был передан {found}.");
         }
 
@@ -106,6 +107,7 @@ namespace MatrixCalc
                 "Matrix" => TryCast<Matrix>(obj),
                 "Number" => TryCast<Number>(obj),
                 "Basic" => TryCast<IBasic>(obj),
+                "List" => TryCast<BasicList>(obj),
                 _ => throw new ArgumentOutOfRangeException($"Invalid type: {Type}")
             };
         }
